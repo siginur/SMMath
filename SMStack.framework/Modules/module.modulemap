@@ -1,0 +1,11 @@
+framework module SMStack {
+  umbrella header "SMStack.h"
+
+  export *
+  module * { export * }
+}
+
+module SMStack.Swift {
+    header "SMStack-Swift.h"
+    requires objc
+}

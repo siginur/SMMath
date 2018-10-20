@@ -10,6 +10,17 @@
 		B342C0B6217997E800282BDC /* SMMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B342C0AC217997E700282BDC /* SMMath.framework */; };
 		B342C0BB217997E800282BDC /* SMMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B342C0BA217997E800282BDC /* SMMathTests.swift */; };
 		B342C0BD217997E800282BDC /* SMMath.h in Headers */ = {isa = PBXBuildFile; fileRef = B342C0AF217997E700282BDC /* SMMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B342C0C72179980400282BDC /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = B342C0C62179980400282BDC /* Math.swift */; };
+		B342C0CB2179986500282BDC /* MathOperatorEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B342C0CA2179986500282BDC /* MathOperatorEnum.swift */; };
+		B342C0CD217998D200282BDC /* FunctionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B342C0CC217998D200282BDC /* FunctionEnum.swift */; };
+		B342C0CF2179990000282BDC /* ExpressionElementEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B342C0CE2179990000282BDC /* ExpressionElementEnum.swift */; };
+		B342C0D421799BB400282BDC /* CalculableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B342C0D321799BB400282BDC /* CalculableProtocol.swift */; };
+		B342C0D621799C2900282BDC /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = B342C0D521799C2900282BDC /* Expression.swift */; };
+		B342C109217AB08F00282BDC /* SMStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B342C108217AB08F00282BDC /* SMStack.framework */; };
+		B342C10D217AB44900282BDC /* SMStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B342C108217AB08F00282BDC /* SMStack.framework */; };
+		B3FAF29C217AC72500D6E7DE /* MaxFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FAF29B217AC72500D6E7DE /* MaxFunction.swift */; };
+		B3FAF29E217AC78900D6E7DE /* FunctionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FAF29D217AC78900D6E7DE /* FunctionProtocol.swift */; };
+		B3FAF2A0217ACADD00D6E7DE /* ModifyInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FAF29F217ACADD00D6E7DE /* ModifyInstruction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +40,16 @@
 		B342C0B5217997E700282BDC /* SMMathTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMMathTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B342C0BA217997E800282BDC /* SMMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMMathTests.swift; sourceTree = "<group>"; };
 		B342C0BC217997E800282BDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B342C0C62179980400282BDC /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		B342C0CA2179986500282BDC /* MathOperatorEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathOperatorEnum.swift; sourceTree = "<group>"; };
+		B342C0CC217998D200282BDC /* FunctionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionEnum.swift; sourceTree = "<group>"; };
+		B342C0CE2179990000282BDC /* ExpressionElementEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionElementEnum.swift; sourceTree = "<group>"; };
+		B342C0D321799BB400282BDC /* CalculableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculableProtocol.swift; sourceTree = "<group>"; };
+		B342C0D521799C2900282BDC /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		B342C108217AB08F00282BDC /* SMStack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMStack.framework; sourceTree = "<group>"; };
+		B3FAF29B217AC72500D6E7DE /* MaxFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxFunction.swift; sourceTree = "<group>"; };
+		B3FAF29D217AC78900D6E7DE /* FunctionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionProtocol.swift; sourceTree = "<group>"; };
+		B3FAF29F217ACADD00D6E7DE /* ModifyInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyInstruction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B342C109217AB08F00282BDC /* SMStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B342C0B6217997E800282BDC /* SMMath.framework in Frameworks */,
+				B342C10D217AB44900282BDC /* SMStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +79,7 @@
 				B342C0AE217997E700282BDC /* SMMath */,
 				B342C0B9217997E800282BDC /* SMMathTests */,
 				B342C0AD217997E700282BDC /* Products */,
+				B342C10B217AB21600282BDC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +95,11 @@
 		B342C0AE217997E700282BDC /* SMMath */ = {
 			isa = PBXGroup;
 			children = (
+				B3FAF29A217AC71600D6E7DE /* MathFunctions */,
+				B342C0C92179984E00282BDC /* protocols */,
+				B342C0C82179984500282BDC /* enums */,
+				B342C0D0217999B300282BDC /* structs */,
+				B342C0C62179980400282BDC /* Math.swift */,
 				B342C0AF217997E700282BDC /* SMMath.h */,
 				B342C0B0217997E700282BDC /* Info.plist */,
 			);
@@ -84,6 +113,50 @@
 				B342C0BC217997E800282BDC /* Info.plist */,
 			);
 			path = SMMathTests;
+			sourceTree = "<group>";
+		};
+		B342C0C82179984500282BDC /* enums */ = {
+			isa = PBXGroup;
+			children = (
+				B342C0CA2179986500282BDC /* MathOperatorEnum.swift */,
+				B342C0CC217998D200282BDC /* FunctionEnum.swift */,
+				B342C0CE2179990000282BDC /* ExpressionElementEnum.swift */,
+				B3FAF29F217ACADD00D6E7DE /* ModifyInstruction.swift */,
+			);
+			path = enums;
+			sourceTree = "<group>";
+		};
+		B342C0C92179984E00282BDC /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B342C0D321799BB400282BDC /* CalculableProtocol.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
+		B342C0D0217999B300282BDC /* structs */ = {
+			isa = PBXGroup;
+			children = (
+				B342C0D521799C2900282BDC /* Expression.swift */,
+			);
+			path = structs;
+			sourceTree = "<group>";
+		};
+		B342C10B217AB21600282BDC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B342C108217AB08F00282BDC /* SMStack.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3FAF29A217AC71600D6E7DE /* MathFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				B3FAF29B217AC72500D6E7DE /* MaxFunction.swift */,
+				B3FAF29D217AC78900D6E7DE /* FunctionProtocol.swift */,
+			);
+			path = MathFunctions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +221,7 @@
 				TargetAttributes = {
 					B342C0AB217997E700282BDC = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 					B342C0B4217997E700282BDC = {
 						CreatedOnToolsVersion = 10.0;
@@ -194,6 +268,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3FAF29C217AC72500D6E7DE /* MaxFunction.swift in Sources */,
+				B342C0C72179980400282BDC /* Math.swift in Sources */,
+				B342C0D421799BB400282BDC /* CalculableProtocol.swift in Sources */,
+				B3FAF29E217AC78900D6E7DE /* FunctionProtocol.swift in Sources */,
+				B3FAF2A0217ACADD00D6E7DE /* ModifyInstruction.swift in Sources */,
+				B342C0CF2179990000282BDC /* ExpressionElementEnum.swift in Sources */,
+				B342C0CD217998D200282BDC /* FunctionEnum.swift in Sources */,
+				B342C0D621799C2900282BDC /* Expression.swift in Sources */,
+				B342C0CB2179986500282BDC /* MathOperatorEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +351,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -326,7 +409,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -341,6 +424,7 @@
 		B342C0C1217997E800282BDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -348,6 +432,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SMMath/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -358,6 +446,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.merkova.SMMath;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,6 +455,7 @@
 		B342C0C2217997E800282BDC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -373,6 +463,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SMMath/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -391,8 +485,13 @@
 		B342C0C4217997E800282BDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HU4P847GG9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SMMathTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -409,8 +508,13 @@
 		B342C0C5217997E800282BDC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HU4P847GG9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SMMathTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
