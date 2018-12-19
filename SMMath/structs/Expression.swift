@@ -22,71 +22,59 @@ internal struct Expression<T: Calculable>: Sequence, CustomStringConvertible {
 		self.elements = elements
 	}
 	
-	init(formula: String, data: [String: T]) {
-		let elementStrings = Expression.formatFormula(formula).split(separator: " ").map { String($0) }
-		let tmpElements = elementStrings.map({ element -> ExpressionElement in
-			if let value = Double(element) {
-				// Number
-				return ExpressionElement.number(value)
-			} else if let op = MathOperator(rawValue: element) {
-				// Operation
-				return ExpressionElement.operator(op)
-			} else if let value = data[element]?.calculableValue {
-				// Variable
-				return ExpressionElement.number(value)
-			} else {
-				// Unknown
-				return ExpressionElement.unknown(element)
-			}
-		})
-		
-		elements = []
-		var counter = 0
-		var functionName: String? = nil
-		var parameters = [Expression<Double>]()
-		var parameterElements = [ExpressionElement]()
-		for element in tmpElements {
-			if let funcName = functionName {
-				// Parse function parameters
-				if case .unknown(let unk) = element, unk == ",", counter == 1 {
-					// new parameter
-					parameters.append(Expression<Double>(elements: parameterElements))
-					parameterElements = []
-				} else if case .operator(let op) = element, op == .openBracket {
-					if counter > 0 {
-						parameterElements.append(element)
-					}
-					counter += 1
-				} else if case .operator(let op) = element, op == .closeBracket {
-					counter -= 1
-					if counter > 0 {
-						parameterElements.append(element)
-					} else {
-						if parameterElements.count > 0 {
-							parameters.append(Expression<Double>(elements: parameterElements))
-							parameterElements = []
-						}
-						if let `func` = FunctionType(name: funcName, parameters: parameters) {
-							elements.append(.function(`func`))
-						} else {
-							elements.append(.number(0))
-						}
-						functionName = nil
-					}
-				} else {
-					parameterElements.append(element)
-				}
-			} else {
-				// Search for function
-				if case .unknown(let unk) = element, unk.starts(with: "$") {
-					functionName = unk
-					parameters = []
-					parameterElements = []
-				} else {
-					elements.append(element)
-				}
-			}
-		}
+	init(formula: String, data: [String: T] = [:]) {
+		let components = Expression.splitFormula(formula)
+		let withoutFunctions = Expression.buildElementsWithoutFunctions(components: components, data: data)
+		elements = withoutFunctions
+//		elements = Expression.buildFunctions(withoutFunctions: withoutFunctions)
+//
+//		elements = []
+//		var counter = 0
+//		var functionName: String? = nil
+//		var parameters = [Expression<Double>]()
+//		var parameterElements = [ExpressionElement]()
+//		for element in withoutFunctions {
+//			if let funcName = functionName {
+//				// Parse function parameters
+//				if case .unknown(let unk) = element, unk == ",", counter == 1 {
+//					// new parameter
+//					parameters.append(Expression<Double>(elements: parameterElements))
+//					parameterElements = []
+//				} else if case .operator(.openBracket) = element {
+//					if counter > 0 {
+//						parameterElements.append(element)
+//					}
+//					counter += 1
+//				} else if case .operator(.closeBracket) = element {
+//					counter -= 1
+//					if counter > 0 {
+//						parameterElements.append(element)
+//					} else {
+//						if parameterElements.count > 0 {
+//							parameters.append(Expression<Double>(elements: parameterElements))
+//							parameterElements = []
+//						}
+//						if let `func` = FunctionType(name: funcName, parameters: parameters) {
+//							elements.append(.function(`func`))
+//						} else {
+//							elements.append(.number(0))
+//						}
+//						functionName = nil
+//					}
+//				} else {
+//					parameterElements.append(element)
+//				}
+//			} else {
+//				// Search for function
+//				if case .unknown(let unk) = element, unk.starts(with: "$") {
+//					functionName = unk
+//					parameters = []
+//					parameterElements = []
+//				} else {
+//					elements.append(element)
+//				}
+//			}
+//		}
 	}
 	
 	subscript(index: Int) -> ExpressionElement {
@@ -136,14 +124,52 @@ internal struct Expression<T: Calculable>: Sequence, CustomStringConvertible {
 
 internal extension Expression {
 	
-	static func formatFormula(_ formula: String) -> String {
+	internal static func splitFormula(_ formula: String) -> [String] {
 		var formula = "(" + formula.replacingOccurrences(of: " ", with: "") + ")"
 		for mathOperator in MathOperator.allCases {
 			let character = mathOperator.rawValue
 			formula = formula.components(separatedBy: CharacterSet(charactersIn: "\(character)")).joined(separator: " \(character) ")
 		}
 		formula = formula.components(separatedBy: CharacterSet(charactersIn: ",")).joined(separator: " , ") // for function parameters
-		return formula.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+		let trimmed = formula.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+		let splitted = trimmed.split(separator: " ")
+		return splitted.map { String($0) }
+	}
+	
+	private static func buildElementsWithoutFunctions(components: [String], data: [String: T]) -> [ExpressionElement] {
+		return components.map({ strElement -> ExpressionElement in
+			if let value = Double(strElement) {
+				// Number
+				return ExpressionElement.number(value)
+			} else if let op = MathOperator(rawValue: strElement) {
+				// Operation
+				return ExpressionElement.operator(op)
+			} else if let value = data[strElement]?.calculableValue {
+				// Variable
+				return ExpressionElement.number(value)
+			}
+			else if strElement.starts(with: "$") {
+//				guard let function = availableFunctions.first(where: { "$" + $0.name == strElement }) else {
+//					return ExpressionElement.unknown(strElement)
+//				}
+				let params = [Expression<Double>(formula: "3"), Expression<Double>(formula: "1")]
+				return ExpressionElement.functionClass(MaxFunction(parameters: params)!)
+			}
+			return ExpressionElement.unknown(strElement)
+		})
+	}
+	
+	private static func buildFunctions(withoutFunctions src: [ExpressionElement]) -> [ExpressionElement] {
+//		let availableFunctions = [FunctionProtocol]()
+		let elements = [ExpressionElement]()
+//		var function: FunctionProtocol!
+//		for (index, element) in src.enumerated() {
+//			if case .unknown(let funcName) = element, unk.starts(with: "$") {
+//				function = availableFunctions.first(where: { "$" + $0.name == funcName })
+//				continue
+//			}
+//		}
+		return elements
 	}
 	
 }

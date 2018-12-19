@@ -18,6 +18,10 @@ class SMMathTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+	
+	func testTemp() {
+		XCTAssertEqual(5,	SMMath.calculate(formula: "1 + $max(3, 1) + 1"))
+	}
 
     func testStandart() {
 		XCTAssertEqual(-44,	SMMath.calculate(formula: "(10 + (2   * 6)) (-2) + (0)"))

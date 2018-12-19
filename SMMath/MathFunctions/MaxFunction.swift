@@ -21,11 +21,15 @@ class MaxFunction: FunctionProtocol {
 		secondExpression = parameters[1]
 	}
 	
-	func calcualte(data: [String : Calculable]) -> Double {
+	func calculate(data: [String : Calculable]) -> Double {
 		let data = data.mapValues({ $0.calculableValue })
 		let value1 = SMMath.calculate(formula: firstExpression.description, data: data)
 		let value2 = SMMath.calculate(formula: secondExpression.description, data: data)
 		return max(value1, value2)
+	}
+	
+	var description: String {
+		return "$" + name + "(...)"
 	}
 	
 }

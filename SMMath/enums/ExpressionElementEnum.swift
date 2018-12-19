@@ -9,15 +9,22 @@
 internal enum ExpressionElement: CustomStringConvertible {
 	case number(Double)
 	case function(FunctionType)
+	case functionClass(FunctionProtocol)
 	case `operator`(MathOperator)
 	case unknown(String)
 	
 	var description: String {
 		switch self {
-		case .number(let val): return "\(val)"
-		case .function(let `func`): return `func`.description
-		case .operator(let op): return op.rawValue
-		case .unknown(let unk): return unk
+		case .number(let val):
+			return "\(val)"
+		case .function(let `func`):
+			return `func`.description
+		case .functionClass(let `func`):
+			return `func`.description
+		case .operator(let op):
+			return op.rawValue
+		case .unknown(let unk):
+			return unk
 		}
 	}
 	

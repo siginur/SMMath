@@ -15,54 +15,12 @@ extension Double: Calculable {
 public class SMMath {
 	
 	public static func calculate<T: Calculable>(formula: String, data: [String: T]) -> Double {
-		var expression = Expression(formula: formula, data: data)
-		var index = 0
-		var modifyInstructions = [ModifyInstruction]()
-		
-		while index < (expression.count - 1) {
-			let subarray = Array(expression[index ..< min(index + 4, expression.count)])
-			if subarray.count == 4,
-				case ExpressionElement.operator(let op) = subarray[0], op != .closeBracket,
-				case ExpressionElement.operator(let op2) = subarray[1], op2 == .minus,
-				case ExpressionElement.number(_) = subarray[2],
-				case ExpressionElement.operator(let op3) = subarray[3] {
-				if op == .openBracket && op3 == .closeBracket {
-					modifyInstructions.append(.negativeNumber(index + 2, index, index + 3))
-				} else {
-					modifyInstructions.append(.negativeNumber(index + 2, index + 1, index + 2))
-				}
-			}
-			
-			if subarray.count >= 2 {
-				if case ExpressionElement.number(_) = subarray[0],
-					case ExpressionElement.operator(let op) = subarray[1], op == .openBracket {
-					modifyInstructions.append(.insertMultiply(index + 1))
-				} else if case ExpressionElement.number(_) = subarray[1],
-					case ExpressionElement.operator(let op) = subarray[0], op == .closeBracket {
-					modifyInstructions.append(.insertMultiply(index + 1))
-				} else if case ExpressionElement.operator(let op) = subarray[0], op == .closeBracket,
-					case ExpressionElement.operator(let op2) = subarray[1], op2 == .openBracket {
-					modifyInstructions.append(.insertMultiply(index + 1))
-				}
-			}
-			
-			index += 1
-		}
-		
-		//		print("BEFORE:", elements.map({ $0.description }).joined(separator: " "))
-		for instruction in modifyInstructions.reversed() {
-			switch instruction {
-			case .negativeNumber(let index, let start, let end):
-				if case ExpressionElement.number(let number) = expression[index] {
-					expression.replaceSubrange(start ... end, with: [ExpressionElement.number(-number)])
-				}
-			case .insertMultiply(let index):
-				expression.insert(.operator(.multiply), at: index)
-			}
-		}
-		//		print("AFTER: ", elements.map({ $0.description }).joined(separator: " "))
+		var expression = Expression<T>(formula: formula, data: data)
+		standardizeExpression(&expression)
+
 		var values = SMStack<Double>()
-		var operators = SMStack<MathOperator>()
+		var operators = SMStack<MathOperator>();
+		var functions = SMStack<FunctionProtocol>();
 		for element in expression {
 			switch element {
 			case .number(let value):
@@ -86,8 +44,13 @@ public class SMMath {
 				operators.push(op)
 			case .function(let `func`):
 				values.push(`func`.calcualte(data: data))
+			case .functionClass(let `func`):
+				functions.push(`func`)
+			case .unknown(let unk) where unk == ",":
+				fallthrough
 			case .unknown:
-				values.push(0)
+				//				values.push(0)
+				break
 			}
 		}
 		
@@ -96,6 +59,64 @@ public class SMMath {
 	
 	public static func calculate(formula: String) -> Double {
 		return calculate(formula: formula, data: [String : Double]())
+	}
+	
+	private static func standardizeExpression<T: Calculable>(_ expression: inout Expression<T>) {
+		let modifyInstructions = SMMath.buildModifyInstructions(expression: expression)
+		applyModifications(modifyInstructions, forExpression: &expression)
+	}
+	
+	private static func buildModifyInstructions<T: Calculable>(expression: Expression<T>) -> [ModifyInstruction] {
+		var modifyInstructions = [ModifyInstruction]()
+		var index = 0
+		
+		while index < (expression.count - 1) {
+			let subarray = Array(expression[index ..< min(index + 4, expression.count)])
+			
+			// Negative numbers. example: 6 * -3  =>  6 * (-3)
+			if subarray.count == 4,
+				case ExpressionElement.operator(let op) = subarray[0], op != .closeBracket,
+				case ExpressionElement.operator(let op2) = subarray[1], op2 == .minus,
+				case ExpressionElement.number(_) = subarray[2],
+				case ExpressionElement.operator(let op3) = subarray[3] {
+				if op == .openBracket && op3 == .closeBracket {
+					modifyInstructions.append(.negativeNumber(index + 2, index, index + 3))
+				} else {
+					modifyInstructions.append(.negativeNumber(index + 2, index + 1, index + 2))
+				}
+			}
+			
+			// Multiply. example: (1 + 2)3  =>  (1 + 2) * 3
+			if subarray.count >= 2 {
+				if case ExpressionElement.number(_) = subarray[0],
+					case ExpressionElement.operator(let op) = subarray[1], op == .openBracket {
+					modifyInstructions.append(.insertMultiply(index + 1))
+				} else if case ExpressionElement.number(_) = subarray[1],
+					case ExpressionElement.operator(let op) = subarray[0], op == .closeBracket {
+					modifyInstructions.append(.insertMultiply(index + 1))
+				} else if case ExpressionElement.operator(let op) = subarray[0], op == .closeBracket,
+					case ExpressionElement.operator(let op2) = subarray[1], op2 == .openBracket {
+					modifyInstructions.append(.insertMultiply(index + 1))
+				}
+			}
+			
+			index += 1
+		}
+		
+		return modifyInstructions;
+	}
+	
+	private static func applyModifications<T: Calculable>(_ modifyInstructions: [ModifyInstruction], forExpression expression: inout Expression<T>) {
+		for instruction in modifyInstructions.reversed() {
+			switch instruction {
+			case .negativeNumber(let index, let start, let end):
+				if case ExpressionElement.number(let number) = expression[index] {
+					expression.replaceSubrange(start ... end, with: [ExpressionElement.number(-number)])
+				}
+			case .insertMultiply(let index):
+				expression.insert(.operator(.multiply), at: index)
+			}
+		}
 	}
 	
 }

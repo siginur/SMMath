@@ -6,12 +6,12 @@
 //  Copyright © 2018 merkova. All rights reserved.
 //
 
-protocol FunctionProtocol {
+protocol FunctionProtocol: CustomStringConvertible {
 	
 	var name: String {get}
 	
 	init?(parameters: [Expression<Double>])
 	
-	func calcualte(data: [String: Calculable]) -> Double
+	func calculate(data: [String: Calculable]) -> Double
 	
 }
